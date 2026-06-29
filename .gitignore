@@ -1,0 +1,11 @@
+# Generated dashboards (regenerate from the database)
+Finance_Dashboard*.html
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Excel lock files
+.~lock.*#
+~$*.xlsx
