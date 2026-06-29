@@ -65,8 +65,11 @@ ClaudeSkill_PersonalFinanceDashboard/
 ## Quick start
 
 1. **Install the skills** via Settings → Capabilities (these folders are the packages).
-2. **Add data:** drop a bank file in the input folder and ask Claude to process it. It cleans,
-   categorizes, asks about anything uncertain, and appends confirmed rows to `FinanceDB.xlsx`.
+2. **Add data:** drop a bank file in the input folder and ask Claude to process it. It cleans and
+   categorizes, then runs two checkpoints like an app: an **intake review** that asks about
+   anything uncertain (unknown currency, new categories/merchants) before writing, and a **commit
+   summary** ("from X, Y, Z — N sources, M new rows, total £…") for you to confirm after writing.
+   Dedup is by transaction ID, so overlapping files never double-import.
 3. **See it:** ask Claude to build the HTML dashboard, or run `FinanceDashboardApp` (`dotnet run`)
    for a live view.
 
