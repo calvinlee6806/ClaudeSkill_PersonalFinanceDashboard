@@ -1,6 +1,6 @@
 ---
-name: finance-dashboard-html
-description: Generate a self-contained HTML dashboard from a personal-finance Excel database (FinanceDB.xlsx). Use this whenever the user wants to see, visualize, refresh, or share their finances as a dashboard or report — phrases like "build my finance dashboard", "refresh the dashboard", "show my spending", "make a chart of my expenses by month", or "I updated the database, regenerate the view". Produces one portable .html file (charts by year/month/week, category and tag breakdowns, trip spend, sortable transaction table) that opens offline in any browser with no install. This is a PRESENTATION layer for the finance-pipeline database — it reads, never writes, the data.
+name: Finance-UpdateDashboard
+description: Generate a self-contained HTML dashboard from a personal-finance Excel database (FinanceDB.xlsx). Use this whenever the user wants to see, visualize, refresh, or share their finances as a dashboard or report — phrases like "build my finance dashboard", "refresh the dashboard", "show my spending", "make a chart of my expenses by month", or "I updated the database, regenerate the view". Produces one portable .html file (charts by year/month/week, category and tag breakdowns, trip spend, sortable transaction table) that opens offline in any browser with no install. This is a PRESENTATION layer for the Finance-ImportStatement database — it reads, never writes, the data.
 ---
 
 # Finance Dashboard (HTML)
@@ -11,7 +11,7 @@ install. This is *End Product A* — portable and shareable. It is a snapshot: i
 database at the moment it was built, so re-run this skill after the database changes.
 
 This skill only reads the database. The source of truth stays in `FinanceDB.xlsx`, owned by the
-`finance-pipeline` skill.
+`Finance-ImportStatement` skill.
 
 ## How to build
 

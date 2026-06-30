@@ -26,12 +26,12 @@ The fix is to **separate interpretation from facts, and data from presentation**
 ## How it works
 
 ```
-Layer 1 · DATA          finance-pipeline (skill)
+Layer 1 · DATA          Finance-ImportStatement (skill)
    bank files → AI clean & categorize → human review → FinanceDB.xlsx   (single source of truth)
         │
         ▼
-Layer 2 · PRESENTATION  finance-dashboard-html (skill)  →  End Product A: portable HTML snapshot
-                        FinanceDashboardApp (.NET 10)    →  End Product B: live app (reads Excel on load)
+Layer 2 · PRESENTATION  Finance-UpdateDashboard (skill)  →  End Product A: portable HTML snapshot
+                        FinanceDashboardApp (.NET 10)     →  End Product B: live app (reads Excel on load)
 ```
 
 Both end products read the **same** database, so they never disagree. A is portable and offline
@@ -41,10 +41,10 @@ Both end products read the **same** database, so they never disagree. A is porta
 
 | Skill | What it does | Output |
 | :--- | :--- | :--- |
-| **`finance-pipeline`** | Ingest CSV / Excel / screenshots, clean & categorize with AI, pause for human review of low-confidence rows, then write deduplicated rows into the Excel database. | Updated `FinanceDB.xlsx` |
-| **`finance-dashboard-html`** | Read the database and generate one self-contained HTML dashboard (charts by year/month/week, category & tag breakdowns, trip spend, sortable table). | `Finance_Dashboard.html` |
+| **`Finance-ImportStatement`** | Ingest CSV / Excel / screenshots, clean & categorize with AI, pause for human review of low-confidence rows, then write deduplicated rows into the Excel database. | Updated `FinanceDB.xlsx` |
+| **`Finance-UpdateDashboard`** | Read the database and generate one self-contained HTML dashboard (charts by year/month/week, category & tag breakdowns, trip spend, sortable table). | `Finance_Dashboard.html` |
 
-The two skills are deliberately separate: `finance-pipeline` owns the **truth**; presentation
+The two skills are deliberately separate: `Finance-ImportStatement` owns the **truth**; presentation
 skills only read from it. `FinanceDashboardApp` (End Product B) is a separate .NET project that
 serves a live dashboard from the same database.
 
@@ -53,10 +53,10 @@ serves a live dashboard from the same database.
 ```
 ClaudeSkill_PersonalFinanceDashboard/
 ├── README.md                         ← you are here
-├── finance-pipeline/
+├── Finance-ImportStatement/
 │   ├── SKILL.md
-│   └── references/                   schema.md · rules.md · prompts.md
-└── finance-dashboard-html/
+│   └── references/                   schema.md · rules.md · prompts.md · check_report.md
+└── Finance-UpdateDashboard/
     ├── SKILL.md
     ├── scripts/build_dashboard.py
     └── assets/dashboard_template.html
@@ -76,13 +76,13 @@ ClaudeSkill_PersonalFinanceDashboard/
 ## Conventions
 
 - All code, comments, and prompts are in **English**.
-- Schema and deterministic rules live in `finance-pipeline/references/` — read those before
+- Schema and deterministic rules live in `Finance-ImportStatement/references/` — read those before
   changing how rows are written.
 - Presentation skills are **read-only** — they never modify the database.
 
 ## Requirements
 
 - Python 3.9+ with `openpyxl` for the HTML dashboard.
-- A workbook following `finance-pipeline/references/schema.md` (start from
+- A workbook following `Finance-ImportStatement/references/schema.md` (start from
   `FinanceDB_template.xlsx`).
 - .NET 10 SDK + ClosedXML (restored automatically) for the optional live app.

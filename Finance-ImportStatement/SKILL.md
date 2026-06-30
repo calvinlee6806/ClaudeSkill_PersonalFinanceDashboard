@@ -1,6 +1,6 @@
 ---
-name: finance-pipeline
-description: Ingest and clean personal-finance transactions into a single Excel database. Use this whenever the user drops a bank statement, CSV, Excel export, or a screenshot/PDF of transactions and wants them cleaned, categorized, and added to their finance database (FinanceDB.xlsx) — even if they just say "process this statement", "add these expenses", "import my Revolut export", or "log these receipts". Handles any bank's layout via AI column alignment, then applies deterministic rules (dedup, travel flagging, notable-spend flagging). Runs two confirmation checkpoints like an app interface — an intake review that raises questions (unknown currency, new categories/merchants) before writing, and a commit summary ("from X, Y, Z — N sources, M new rows, total £…") for sign-off after writing. This is the DATA layer; pair it with a presentation skill (e.g. finance-dashboard-html) to visualize the result.
+name: Finance-ImportStatement
+description: Ingest and clean personal-finance transactions into a single Excel database. Use this whenever the user drops a bank statement, CSV, Excel export, or a screenshot/PDF of transactions and wants them cleaned, categorized, and added to their finance database (FinanceDB.xlsx) — even if they just say "process this statement", "add these expenses", "import my Revolut export", or "log these receipts". Handles any bank's layout via AI column alignment, then applies deterministic rules (dedup, travel flagging, notable-spend flagging). Runs two confirmation checkpoints like an app interface — an intake review that raises questions (unknown currency, new categories/merchants) before writing, and a commit summary ("from X, Y, Z — N sources, M new rows, total £…") for sign-off after writing. This is the DATA layer; pair it with a presentation skill (e.g. Finance-UpdateDashboard) to visualize the result.
 ---
 
 # Finance Pipeline
@@ -100,6 +100,6 @@ write may fail or corrupt.
 
 ## After processing
 
-Once the database is updated, offer to refresh the dashboard. If the `finance-dashboard-html`
+Once the database is updated, offer to refresh the dashboard. If the `Finance-UpdateDashboard`
 skill is available, that regenerates the HTML view; a separate C# app (if the user built one)
 picks up the change automatically on next launch.
