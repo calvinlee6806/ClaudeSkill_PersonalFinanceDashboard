@@ -1,0 +1,8 @@
+
+
+Co-authored-by: Claude <noreply@anthropic.com>
+
+# ^ Line 1 (top, above the blank line) = your commit subject.
+# Keep ONE blank line between the subject and the Co-authored-by trailer.
+# That trailer credits Claude as a co-author on GitHub.
+# Lines starting with # are ignored by git.
